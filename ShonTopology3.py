@@ -15,8 +15,12 @@ import pylab
 # twoWayRecurrentProjection()
 
 
+# As of October 2016, conductance based neurons with multiplicative stdp learning rule
+# are not available by default on SpiNNaker
+# https://groups.google.com/forum/#!msg/spinnakerusers/tPWiPqTkQq4/BnOQYq8NAwAJ
+
 class ShonTopology3:
-    def __init__(self, simulation_params, mode, cell_params, stdp_param,
+    def __init__(self, simulation_params, mode, cell_params, stdp_params,
                  input_pop_size, output_pop_size, weights, delays, input_sequence):
 
         self.simulation_params = simulation_params
@@ -34,10 +38,12 @@ class ShonTopology3:
         #
         # Populations
         #
-        input_pop_on = Population(self.input_pop_size, SpikeSourceArray,
-                                  {'spike_times': self.input_sequence})
-        input_pop_off = Population(self.input_pop_size, SpikeSourceArray,
-                                   {'spike_times': self.input_sequence})
+        #input_pop_on = Population(self.input_pop_size, SpikeSourceArray,
+        #{'spike_times': self.input_sequence})
+        #input_pop_off = Population(self.input_pop_size, SpikeSourceArray,
+        #{'spike_times': self.input_sequence})
+        input_pop_off = Population(self.input_pop_size, IF_cond_exp, self.cell_params)
+        input_pop_on = Population(self.input_pop_size, IF_cond_exp, self.cell_params)
         output_pop = Population(self.output_pop_size, IF_cond_exp, self.cell_params)
 
         #

@@ -1,4 +1,5 @@
 from ShonTopology3 import ShonTopology3
+from spynnaker.pyNN import *
 import numpy as np
 
 
@@ -61,6 +62,6 @@ simulation = ShonTopology3(simulation_params=simulation_params, mode='training',
                            cell_params=cell_params, stdp_params=stdp_params,
                            input_pop_size=100, output_pop_size=20,
                            weights=weights, delays=delays,
-                           input_sequence=???)
+                           input_sequence=[])
 
 simulation.run_simulation()
